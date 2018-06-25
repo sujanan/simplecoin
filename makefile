@@ -1,7 +1,7 @@
 CC=gcc
 
 CFLAGS=-c -Wall
-LDFLAGS=
+LDFLAGS=-lssl
 SOURCES=main.c
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=simplecoin.out
