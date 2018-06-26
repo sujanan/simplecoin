@@ -24,6 +24,7 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 # shared library list
 set(LIBS
 	"-lssl"
+	"-lcrypto"
 )
 
 # add shared library list

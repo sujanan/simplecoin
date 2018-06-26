@@ -1,6 +1,14 @@
-add_executable(checks test_test.c)
+set(LIBS
+	"-lssl"
+	"-lcrypto"
+)
 
-target_link_libraries(checks libsimplecoin)
+add_executable(checks 
+	test.h
+	test_test.c
+)
+
+target_link_libraries(checks libsimplecoin ${LIBS})
 
 add_test(NAME sample_test
 	COMMAND checks
