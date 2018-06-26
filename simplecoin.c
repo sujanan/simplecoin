@@ -4,18 +4,27 @@
 #include <openssl/sha.h>
 #include "simplecoin.h"
 
-struct block {
-    unsigned int index;      // block height in chain
-    char *hash;              // block hash (sha256)
-    char *prev_hash;         // previous block hash
-    char *data;              // block data
-    unsigned long timestamp; // block timestamp
-};
-
-int func() { return 10; }
-
 // first hash in chain
-const char genesis_hash[] = "816534932c2b7154836da6afc367695e6337db8a921823784c14378abed4f7d7";
+const char genesis_hash[] = 
+        "816534932c2b7154836da6afc367695e6337db8a921823784c14378abed4f7d7";
 
 // calculate hash length from genesis hash
 #define HASH_LEN (sizeof(genesis_hash)/sizeof(genesis_hash[0]))
+
+// generate a sha256 hash
+char *gen_sha256(const char *str)
+{
+    char *buf = malloc(HASH_LEN + 1);
+    memset(buf, 0, HASH_LEN + 1);
+    unsigned char hash[SHA256_DIGEST_LENGTH];
+    SHA256_CTX sha256;
+    SHA256_Init(&sha256);
+    SHA256_Update(&sha256, str, strlen(str));
+    SHA256_Final(hash, &sha256);
+    int i;
+    for(i = 0; i < SHA256_DIGEST_LENGTH; i++)
+        sprintf(buf + (i * 2), "%02x", hash[i]);
+
+    printf("%s\n", buf);
+    return buf;
+}
