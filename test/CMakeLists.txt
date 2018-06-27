@@ -5,7 +5,7 @@ set(LIBS
 
 add_executable(checks 
 	test.h
-	test_test.c
+	test_gen_sha256.c
 )
 
 target_link_libraries(checks libsimplecoin ${LIBS})
