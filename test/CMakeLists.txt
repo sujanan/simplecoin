@@ -1,15 +1,17 @@
 set(LIBS
-	"-lssl"
-	"-lcrypto"
+    "-lssl"
+    "-lcrypto"
+    "-lcheck"
 )
 
-add_executable(checks 
-	test.h
-	test_gen_sha256.c
-)
+# test1: test sha256 hash generating function
+set(TEST test_gen_sha256)
+add_executable(${TEST} test.h ${TEST}.c)
+target_link_libraries(${TEST} libsimplecoin ${LIBS})
+add_test(NAME ${TEST} COMMAND ${TEST})
 
-target_link_libraries(checks libsimplecoin ${LIBS})
-
-add_test(NAME sample_test
-	COMMAND checks
-)
+# test2: test strlen of all block data
+set(TEST test_block_strlen)
+add_executable(${TEST} test.h ${TEST}.c)
+target_link_libraries(${TEST} libsimplecoin ${LIBS})
+add_test(NAME ${TEST} COMMAND ${TEST})
