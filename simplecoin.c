@@ -12,19 +12,18 @@ const char genesis_hash[] =
 #define HASH_LEN (sizeof(genesis_hash)/sizeof(genesis_hash[0]))
 
 // generate a sha256 hash
-char *gen_sha256(const char *str)
+// note: buf length must be HASH_LEN + 1
+void gen_sha256(char *buf, const char *str)
 {
-    char *buf = malloc(HASH_LEN + 1);
     memset(buf, 0, HASH_LEN + 1);
+    // [START hash generating]
     unsigned char hash[SHA256_DIGEST_LENGTH];
     SHA256_CTX sha256;
     SHA256_Init(&sha256);
     SHA256_Update(&sha256, str, strlen(str));
     SHA256_Final(hash, &sha256);
+    // [END hash generating]
     int i;
     for(i = 0; i < SHA256_DIGEST_LENGTH; i++)
         sprintf(buf + (i * 2), "%02x", hash[i]);
-
-    printf("%s\n", buf);
-    return buf;
 }
