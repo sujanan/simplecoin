@@ -15,7 +15,7 @@ const char genesis_hash[] =
 // note: buf length must be HASH_LEN + 1
 void gen_sha256(char *buf, const char *str)
 {
-    memset(buf, 0, HASH_LEN + 1);
+    memset(buf, 0, HASH_LEN);
     // [START hash generating]
     unsigned char hash[SHA256_DIGEST_LENGTH];
     SHA256_CTX sha256;
@@ -26,4 +26,14 @@ void gen_sha256(char *buf, const char *str)
     int i;
     for(i = 0; i < SHA256_DIGEST_LENGTH; i++)
         sprintf(buf + (i * 2), "%02x", hash[i]);
+}
+
+size_t block_strlen(const struct block *b)
+{
+    size_t length = 0;
+    length += snprintf(NULL, 0, "%u", b->index);
+    length += (HASH_LEN - 1) * 2;
+    length += strlen(b->data);
+    length += snprintf(NULL, 0, "%lu", b->timestamp);
+    return length + 1;
 }
