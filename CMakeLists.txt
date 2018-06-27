@@ -9,13 +9,13 @@ project(${PROJECT_NAME})
 
 # source file list
 set(SOURCES_LIB
-	simplecoin.h
-	simplecoin.c
+    simplecoin.h
+    simplecoin.c
 )
 
 set(SOURCES
-	${SOURCES_LIB}
-	main.c
+    ${SOURCES_LIB}
+    main.c
 )
 
 # add main executables
@@ -23,8 +23,8 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 
 # shared library list
 set(LIBS
-	"-lssl"
-	"-lcrypto"
+    "-lssl"
+    "-lcrypto"
 )
 
 # add shared library list
