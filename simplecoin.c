@@ -28,12 +28,40 @@ void gen_sha256(char *buf, const char *str)
         sprintf(buf + (i * 2), "%02x", hash[i]);
 }
 
+// calculate character length of block attibutes
 size_t block_strlen(const struct block *b)
 {
     size_t length = 0;
     length += snprintf(NULL, 0, "%u", b->index);
-    length += (HASH_LEN - 1) * 2;
+    // genesis block
+    if (b->prev_hash != NULL)
+        length += HASH_LEN - 1;
+    length += HASH_LEN - 1;
     length += strlen(b->data);
     length += snprintf(NULL, 0, "%lu", b->timestamp);
     return length + 1;
+}
+
+// convert block to string
+// note: str length must be generated using block_strlen
+void block_tostr(const struct block *b, char *str)
+{
+    // index
+    sprintf(str, "%u", b->index);
+    str += strlen(str);
+    // prev_hash
+    // genesis block
+    if (b->prev_hash != NULL) {
+        strcpy(str, b->prev_hash);
+        str += strlen(str);
+    }
+    // hash
+    strcpy(str, b->hash);
+    str += strlen(str);
+    // data
+    strcpy(str, b->data);
+    str += strlen(str);
+    // timestamp 
+    sprintf(str, "%lu", b->timestamp);
+    printf("%s\n", str);
 }
