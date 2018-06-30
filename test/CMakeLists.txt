@@ -15,3 +15,9 @@ set(TEST test_block_strlen)
 add_executable(${TEST} test.h ${TEST}.c)
 target_link_libraries(${TEST} libsimplecoin ${LIBS})
 add_test(NAME ${TEST} COMMAND ${TEST})
+
+# test3: test converting block data to string
+set(TEST test_block_tostr)
+add_executable(${TEST} test.h ${TEST}.c)
+target_link_libraries(${TEST} libsimplecoin ${LIBS})
+add_test(NAME ${TEST} COMMAND ${TEST})

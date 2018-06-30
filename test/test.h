@@ -9,5 +9,6 @@
 
 void gen_sha256(char *buf, const char *str);
 size_t block_strlen(const struct block *b);
+void block_tostr(const struct block *b, char *str);
 
 #endif
